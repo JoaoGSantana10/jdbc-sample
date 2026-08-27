@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.3.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: jdbc-sample
+      MYSQL_PASSWORD: jdbc-sample
+      MYSQL_DATABASE: jdbc-sample
+    ports:
+      - "3306:3306"
