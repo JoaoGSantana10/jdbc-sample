@@ -26,12 +26,12 @@ public class Main {
         //INSERT
         var insert = new EmployeeEntity();
         insert.setName("João");
-        insert.setSalary(new BigDecimal("10000"));
+        insert.setSalary(new BigDecimal("50000"));
         insert.setBirthday(OffsetDateTime.now().minusYears(20));
         System.out.println(insert);
         employeeDAO.insert(insert);
         System.out.println(insert);
-         */
+        */
 
 
 
@@ -50,13 +50,15 @@ public class Main {
         /*
         //UPDATE
         var update = new EmployeeEntity();
-        update.setId(insert.getId());
-        update.setName("Gabriel");
-        update.setSalary(new BigDecimal("9000"));
-        update.setBirthday(OffsetDateTime.now().minusYears(18).minusDays(22));
+        //update.setId(insert.getId());
+        update.setId(1L);
+        update.setName("João");
+        update.setSalary(new BigDecimal("60000"));
+        update.setBirthday(OffsetDateTime.now().minusYears(20).minusDays(1));
         employeeDAO.update(update);
-
          */
+
+
 
         //employeeDAO.delete(insert.getId());
 
