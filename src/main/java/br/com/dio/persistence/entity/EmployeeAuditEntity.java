@@ -10,7 +10,7 @@ public record EmployeeAuditEntity(
    BigDecimal salary,
    BigDecimal oldSalary,
    OffsetDateTime birthday,
-   OffsetDateTime oldBirthday
-
+   OffsetDateTime oldBirthday,
+   OperationEnum operation
 ) {
 }
