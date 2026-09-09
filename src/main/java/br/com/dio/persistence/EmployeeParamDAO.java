@@ -1,5 +1,6 @@
 package br.com.dio.persistence;
 
+import br.com.dio.persistence.entity.ContactEntity;
 import br.com.dio.persistence.entity.EmployeeEntity;
 import com.mysql.cj.jdbc.StatementImpl;
 
@@ -179,20 +180,35 @@ public List<EmployeeEntity> findAll() {
 
 public EmployeeEntity findById(final long id) {
     var entity = new EmployeeEntity();
+    var sql = "SELECT e.id employee_id,\n" +
+            "       e.name,\n" +
+            "       e.salary,\n" +
+            "       e.birthday,\n" +
+            "       c.id contact_id,\n" +
+            "       c.description,\n" +
+            "       c.type\n" +
+            "FROM employees e \n" +
+            "LEFT JOIN contacts c \n" +
+            "  ON c.employee_id = e.id \n " +
+            "WHERE e.id = ?";
     try (
             var connection = ConnectionUtil.getConnection();
-            var statement = connection.prepareStatement("SELECT * FROM employees WHERE id = ?")
+            var statement = connection.prepareStatement(sql)
 
     ) {
         statement.setLong(1, id);
         statement.executeQuery();
         var resultSet = statement.getResultSet();
         if (resultSet.next()) {
-            entity.setId(resultSet.getLong("id"));
+            entity.setId(resultSet.getLong("employee_id"));
             entity.setName(resultSet.getString("name"));
             entity.setSalary(resultSet.getBigDecimal("salary"));
             var birthdayInstant = resultSet.getTimestamp("birthday").toInstant();
             entity.setBirthday(OffsetDateTime.ofInstant(birthdayInstant, UTC));
+            entity.setContact(new ContactEntity());
+            entity.getContact().setId(resultSet.getLong("contact_id"));
+            entity.getContact().setDescription(resultSet.getString("description"));
+            entity.getContact().setType(resultSet.getString("type"));
         }
     } catch (SQLException ex) {
         ex.printStackTrace();
