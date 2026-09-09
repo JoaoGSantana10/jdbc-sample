@@ -16,4 +16,6 @@ public class EmployeeEntity {
 
     private OffsetDateTime birthday;
 
+    private ContactEntity contact;
+
 }
