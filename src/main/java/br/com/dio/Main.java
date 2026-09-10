@@ -83,7 +83,9 @@ public class Main {
         employeeDAO.insert(entities);
          */
 
-        /* var employee = new EmployeeEntity();
+        /*
+        Relacionamento 1 para 1
+         var employee = new EmployeeEntity();
         employee.setName("Lucas");
         employee.setSalary(new BigDecimal("20000"));
         employee.setBirthday(OffsetDateTime.now().minusYears(18));
@@ -91,9 +93,6 @@ public class Main {
         employeeDAO.insert(employee);
         System.out.println(employee);
 
-         */
-
-        /*
         var contact = new ContactEntity();
         contact.setDescription("joaogsantanadeoliveira@gmail.com");
         contact.setType("e-mail");
@@ -101,8 +100,35 @@ public class Main {
         contactDAO.insert(contact);
          */
 
-        System.out.println(employeeDAO.findById(1));
+        //System.out.println(employeeDAO.findById(1));
 
+        // Relacionamento 1 para N
+        /*
+        var employee = new EmployeeEntity();
+        employee.setName("João Guilherme");
+        employee.setSalary(new BigDecimal("20000"));
+        employee.setBirthday(OffsetDateTime.now().minusYears(18));
+        System.out.println(employee);
+        employeeDAO.insert(employee);
+        System.out.println(employee);
+
+
+
+
+        var contact1 = new ContactEntity();
+        contact1.setDescription("joaogsantanadeoliveira@gmail.com");
+        contact1.setType("e-mail");
+        contact1.setEmployee(employee);
+        contactDAO.insert(contact1);
+
+        var contact2 = new ContactEntity();
+        contact2.setDescription("61992497111");
+        contact2.setType("celular");
+        contact2.setEmployee(employee);
+        contactDAO.insert(contact2);*/
+
+        //System.out.println(employeeDAO.findById(1));
+        //employeeDAO.findAll().forEach(System.out::println);
 
 
         /*
