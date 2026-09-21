@@ -4,6 +4,7 @@ import br.com.dio.persistence.*;
 //import br.com.dio.persistence.EmployeeAuditDAO;
 import br.com.dio.persistence.entity.ContactEntity;
 import br.com.dio.persistence.entity.EmployeeEntity;
+import br.com.dio.persistence.entity.ModuleEntity;
 import net.datafaker.Faker;
 import org.flywaydb.core.Flyway;
 
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.stream.Stream;
 
@@ -55,7 +57,7 @@ public class Main {
 
 
         //UPDATE
-        /*var update = new EmployeeEntity();
+        /*var update = new EmployeeEntity();a
         //update.setId(insert.getId());
         update.setId(1L);
         update.setName("João");
@@ -78,10 +80,29 @@ public class Main {
             employee.setSalary(new BigDecimal(faker.number().digits(4)));
             employee.setBirthday(OffsetDateTime.of(LocalDate.now().minusYears(faker.number().numberBetween(40, 20)), LocalTime.MIN, UTC));
             return employee;
-        }).limit(10000).toList();
-
-        employeeDAO.insert(entities);
+        }).limit(3).toList();
          */
+
+        // Para gerar os calaboradores e colocar no access
+        var entities = Stream.generate(() -> {
+            var employee = new EmployeeEntity();
+            employee.setName(faker.name().fullName());
+            employee.setSalary(new BigDecimal(faker.number().digits(4)));
+            employee.setBirthday(OffsetDateTime.of(LocalDate.now().minusYears(faker.number().numberBetween(40, 20)), LocalTime.MIN, UTC));
+            employee.setModules(new ArrayList<>());
+            var moduleAmount = faker.number().numberBetween(1, 4);
+            for (int i = 0; i < moduleAmount; i++) {
+                var module = new ModuleEntity();
+                module.setId(i + 1);
+                employee.getModules().add(module);
+            }
+            return employee;
+        }).limit(3).toList();
+        entities.forEach(employeeDAO::insert);
+
+        //employeeDAO.insert(entities);
+
+
 
         /*
         Relacionamento 1 para 1
