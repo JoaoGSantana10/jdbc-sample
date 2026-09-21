@@ -19,4 +19,6 @@ public class EmployeeEntity {
 
     private List<ContactEntity> contacts;
 
+    private List<ModuleEntity> modules;
+
 }
